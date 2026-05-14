@@ -38,8 +38,8 @@ void main() {
     );
 
     group('factories', () {
-      final _notFoundStackTrace = StackTrace.current;
-      final _validationStackTrace = StackTrace.current;
+      final notFoundStackTrace = StackTrace.current;
+      final validationStackTrace = StackTrace.current;
       final cases =
           <
             ({
@@ -70,7 +70,7 @@ void main() {
             (
               name: 'notFound maps to notFound kind with defaults',
               failure: AppFailure.notFound(
-                stackTrace: _notFoundStackTrace,
+                stackTrace: notFoundStackTrace,
                 handler: noopAppFailureHandler,
               ),
               expectedKind: AppFailureKind.notFound,
@@ -78,13 +78,13 @@ void main() {
               expectedCode: null,
               expectedCause: isNull,
               expectedData: const {},
-              expectedStackTrace: _notFoundStackTrace,
+              expectedStackTrace: notFoundStackTrace,
             ),
             (
               name: 'validation maps to validation kind',
               failure: AppFailure.validation(
                 message: 'Name is required',
-                stackTrace: _validationStackTrace,
+                stackTrace: validationStackTrace,
                 handler: noopAppFailureHandler,
                 code: 'VAL-1',
                 data: const {'field': 'name'},
@@ -94,7 +94,7 @@ void main() {
               expectedCode: 'VAL-1',
               expectedCause: isNull,
               expectedData: const {'field': 'name'},
-              expectedStackTrace: _validationStackTrace,
+              expectedStackTrace: validationStackTrace,
             ),
           ];
 

@@ -32,7 +32,10 @@ Sequential worker settings:
   - Test file: `test/app_load_controller_test.dart`
   - Checks: `dart format test/app_load_controller_test.dart`; `dart analyze test/app_load_controller_test.dart`; `flutter test test/app_load_controller_test.dart`
   - Status: completed
-- [ ] `lib/src/app_load_state.dart`
+- [x] `lib/src/app_load_state.dart`
+  - Test file: `test/app_load_state_test.dart`
+  - Checks: `dart format test/app_load_state_test.dart`; `dart analyze test/app_load_state_test.dart`; `flutter test test/app_load_state_test.dart`
+  - Status: completed
 - [x] `lib/src/app_result.dart`
   - Test file: `test/app_result_test.dart`
   - Checks: `dart analyze test/app_result_test.dart`; `flutter test test/app_result_test.dart`
@@ -44,4 +47,4 @@ Sequential worker settings:
 
 ## Current Step
 
-Next target: `lib/src/app_load_state.dart`
+Next target: `lib/src/ui_message.dart`

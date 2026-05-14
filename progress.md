@@ -28,7 +28,10 @@ Sequential worker settings:
   - Test file: `test/app_failure_mapper_test.dart`
   - Checks: `dart format test/app_failure_mapper_test.dart`; `dart analyze test/app_failure_mapper_test.dart`; `flutter test test/app_failure_mapper_test.dart`
   - Status: completed
-- [ ] `lib/src/app_load_controller.dart`
+- [x] `lib/src/app_load_controller.dart`
+  - Test file: `test/app_load_controller_test.dart`
+  - Checks: `dart format test/app_load_controller_test.dart`; `dart analyze test/app_load_controller_test.dart`; `flutter test test/app_load_controller_test.dart`
+  - Status: completed
 - [ ] `lib/src/app_load_state.dart`
 - [x] `lib/src/app_result.dart`
   - Test file: `test/app_result_test.dart`
@@ -41,4 +44,4 @@ Sequential worker settings:
 
 ## Current Step
 
-Next target: `lib/src/app_load_controller.dart`
+Next target: `lib/src/app_load_state.dart`

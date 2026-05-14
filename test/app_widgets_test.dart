@@ -44,7 +44,8 @@ void main() {
               AppFailure(
                 kind: AppFailureKind.network,
                 message: 'Offline',
-                report: noopAppFailureReporter,
+                stackTrace: StackTrace.current,
+                handler: noopAppFailureHandler,
               ),
             ),
             builder: (context, data) => Text(data.join()),

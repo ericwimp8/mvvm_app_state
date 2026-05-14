@@ -9,7 +9,7 @@ sealed class AppResult<T> {
 
   static Future<AppResult<T>> guard<T>(
     Future<T> Function() action, {
-    required AppFailureReporter reportFailure,
+    required AppFailureHandler failureHandler,
     AppFailure Function(Object error, StackTrace stackTrace)? mapError,
   }) async {
     try {
@@ -17,7 +17,7 @@ sealed class AppResult<T> {
     } catch (error, stackTrace) {
       return AppResult.failure(
         mapError?.call(error, stackTrace) ??
-            AppFailure.unexpected(error, stackTrace, report: reportFailure),
+            AppFailure.unexpected(error, stackTrace, handler: failureHandler),
       );
     }
   }

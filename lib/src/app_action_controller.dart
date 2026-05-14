@@ -13,13 +13,13 @@ typedef AppFailureMessageBuilder = UiMessage? Function(AppFailure failure);
 
 final class AppActionController<T> {
   AppActionController({
-    required AppFailureReporter reportFailure,
+    required AppFailureHandler failureHandler,
     AppActionState<T> initialState = const AppActionState.idle(),
   }) : state = signal(initialState),
-       _reportFailure = reportFailure,
+       _failureHandler = failureHandler,
        message = signal(null);
 
-  final AppFailureReporter _reportFailure;
+  final AppFailureHandler _failureHandler;
   final Signal<AppActionState<T>> state;
   final Signal<UiMessage?> message;
 
@@ -36,7 +36,8 @@ final class AppActionController<T> {
         AppFailure(
           kind: AppFailureKind.conflict,
           message: 'Action is already running.',
-          report: _reportFailure,
+          stackTrace: StackTrace.current,
+          handler: _failureHandler,
         ),
       );
     }
@@ -50,7 +51,7 @@ final class AppActionController<T> {
     } catch (error, stackTrace) {
       result = AppResult.failure(
         mapError?.call(error, stackTrace) ??
-            AppFailure.unexpected(error, stackTrace, report: _reportFailure),
+            AppFailure.unexpected(error, stackTrace, handler: _failureHandler),
       );
     }
 

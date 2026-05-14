@@ -2,72 +2,83 @@ import 'package:flutter/foundation.dart';
 
 import 'app_failure_kind.dart';
 
-typedef AppFailureReporter = void Function(AppFailure failure);
+abstract interface class AppFailureHandler {
+  void handle(AppFailure failure);
+}
 
-void noopAppFailureReporter(AppFailure _) {}
+final class NoopAppFailureHandler implements AppFailureHandler {
+  const NoopAppFailureHandler();
+
+  @override
+  void handle(AppFailure failure) {}
+}
+
+const AppFailureHandler noopAppFailureHandler = NoopAppFailureHandler();
 
 @immutable
 final class AppFailure implements Exception {
   AppFailure({
     required this.kind,
     required this.message,
-    required AppFailureReporter report,
+    required this.stackTrace,
+    required AppFailureHandler handler,
     this.code,
     this.cause,
-    this.stackTrace,
     this.data = const {},
   }) {
-    report(this);
+    handler.handle(this);
   }
 
   factory AppFailure.unexpected(
     Object cause,
     StackTrace stackTrace, {
     String message = 'Something went wrong.',
-    required AppFailureReporter report,
+    required AppFailureHandler handler,
     String? code,
     Map<String, Object?> data = const {},
   }) {
     return AppFailure(
       kind: AppFailureKind.unknown,
       message: message,
-      report: report,
+      stackTrace: stackTrace,
+      handler: handler,
       code: code,
       cause: cause,
-      stackTrace: stackTrace,
       data: data,
     );
   }
 
   factory AppFailure.notFound({
+    required StackTrace stackTrace,
+    required AppFailureHandler handler,
     String message = 'Item not found.',
-    required AppFailureReporter report,
     String? code,
     Object? cause,
-    StackTrace? stackTrace,
     Map<String, Object?> data = const {},
   }) {
     return AppFailure(
       kind: AppFailureKind.notFound,
       message: message,
-      report: report,
+      stackTrace: stackTrace,
+      handler: handler,
       code: code,
       cause: cause,
-      stackTrace: stackTrace,
       data: data,
     );
   }
 
   factory AppFailure.validation({
     required String message,
-    required AppFailureReporter report,
+    required StackTrace stackTrace,
+    required AppFailureHandler handler,
     String? code,
     Map<String, Object?> data = const {},
   }) {
     return AppFailure(
       kind: AppFailureKind.validation,
       message: message,
-      report: report,
+      stackTrace: stackTrace,
+      handler: handler,
       code: code,
       data: data,
     );
@@ -77,7 +88,7 @@ final class AppFailure implements Exception {
   final String message;
   final String? code;
   final Object? cause;
-  final StackTrace? stackTrace;
+  final StackTrace stackTrace;
   final Map<String, Object?> data;
 
   bool get isNotFound => kind == AppFailureKind.notFound;
@@ -85,7 +96,7 @@ final class AppFailure implements Exception {
   bool get isValidation => kind == AppFailureKind.validation;
 
   AppFailure copyWith({
-    required AppFailureReporter report,
+    required AppFailureHandler handler,
     AppFailureKind? kind,
     String? message,
     String? code,
@@ -96,10 +107,10 @@ final class AppFailure implements Exception {
     return AppFailure(
       kind: kind ?? this.kind,
       message: message ?? this.message,
-      report: report,
+      stackTrace: stackTrace ?? this.stackTrace,
+      handler: handler,
       code: code ?? this.code,
       cause: cause ?? this.cause,
-      stackTrace: stackTrace ?? this.stackTrace,
       data: data ?? this.data,
     );
   }

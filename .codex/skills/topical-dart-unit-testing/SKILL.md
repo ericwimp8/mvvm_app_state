@@ -1,6 +1,6 @@
 ---
 name: topical-dart-unit-testing
-description: Dart and Flutter unit-testing patterns with Mocktail. Use when writing Dart unit tests, Flutter widget tests, mocking dependencies, stubbing methods, verifying interactions, or testing async code below the integration layer. Do not use this skill for integration tests, `integration_test/**`, or emulator/device-driven end-to-end flows.
+description: Dart and Flutter unit testing patterns with Mocktail. Mandatory use every time when writing Dart unit tests.
 ---
 
 # Dart Unit Testing with Mocktail
@@ -10,7 +10,6 @@ description: Dart and Flutter unit-testing patterns with Mocktail. Use when writ
 - You must keep generated test files comment-free.
 - You must convert repeated test shapes to typed table-driven matrices when 3 or more cases share one setup/act path.
 - You must keep setup minimal and behavior-focused.
-- You must not treat this skill as guidance for integration tests or runtime device/emulator flows.
 
 ## File Index
 
@@ -66,8 +65,8 @@ Each file covers a testing concern. Format: What it covers / When to use it.
 
 ## Usage
 
-This index contains curated patterns that supersede general approaches. When writing code for any problem listed above, read the matching file first—do not rely on general knowledge.
+This index contains curated patterns that supersede general approaches. When writing Dart unit tests, read the matching file first—do not rely on general knowledge.
 
-**Before writing:** Scan this index. If your task matches an entry, read that file.
+**Before writing:** Scan this index and read the matching file.
 **While writing:** If you're about to write non-trivial test logic, pause and check if a pattern exists here.
 **After writing:** Verify your code matches the patterns in the relevant files, not just your training.

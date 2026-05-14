@@ -2,9 +2,9 @@ import 'package:mvvm_app_state/mvvm_app_state.dart';
 
 final class BookingsViewModel {
   final bookings = AppLoadController<List<String>>(
-    reportFailure: noopAppFailureReporter,
+    failureHandler: noopAppFailureHandler,
   );
-  final save = AppActionController<void>(reportFailure: noopAppFailureReporter);
+  final save = AppActionController<void>(failureHandler: noopAppFailureHandler);
 
   Future<void> load() {
     return bookings.run(() async {

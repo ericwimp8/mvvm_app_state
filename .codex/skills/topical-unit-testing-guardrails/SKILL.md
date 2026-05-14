@@ -1,15 +1,13 @@
 ---
 name: topical-unit-testing-guardrails
-description: Repository entrypoint for unit-testing work in this repository. Use when writing or changing non-integration Dart or Flutter tests, then open the relevant stack reference before editing tests. Do not use this skill for `integration_test/**`, app/runtime integration tests, or emulator/device-driven end-to-end flows.
+description: Repository entrypoint for Dart and Flutter unit testing guardrails. Mandatory use every time when writing Dart unit tests.
 ---
 
 # Topical Unit Testing Guardrails
 
 ## Usage
 
-This skill is the entrypoint for unit-testing work in this repository.
-
-Do not load this skill for app/runtime integration tests, emulator-driven integration tests, or device/driver automation flows.
+This skill is the entrypoint for Dart and Flutter unit-testing work in this repository.
 
 ## Mandatory Skill Load Matrix
 

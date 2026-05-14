@@ -5,7 +5,7 @@ void main() {
   group('AppLoadController', () {
     test('moves from initial to data after a successful load', () async {
       final controller = AppLoadController<List<String>>(
-        reportFailure: noopAppFailureReporter,
+        failureHandler: noopAppFailureHandler,
       );
       addTearDown(controller.dispose);
 
@@ -17,7 +17,7 @@ void main() {
 
     test('uses empty state for empty iterables by default', () async {
       final controller = AppLoadController<List<String>>(
-        reportFailure: noopAppFailureReporter,
+        failureHandler: noopAppFailureHandler,
       );
       addTearDown(controller.dispose);
 
@@ -29,7 +29,7 @@ void main() {
 
     test('preserves previous data when a refresh fails', () async {
       final controller = AppLoadController<List<String>>(
-        reportFailure: noopAppFailureReporter,
+        failureHandler: noopAppFailureHandler,
       );
       addTearDown(controller.dispose);
 
@@ -39,7 +39,8 @@ void main() {
           AppFailure(
             kind: AppFailureKind.network,
             message: 'Offline',
-            report: noopAppFailureReporter,
+            stackTrace: StackTrace.current,
+            handler: noopAppFailureHandler,
           ),
         ),
         preserveData: true,
@@ -53,7 +54,7 @@ void main() {
 
     test('converts thrown task errors into failure state', () async {
       final controller = AppLoadController<String>(
-        reportFailure: noopAppFailureReporter,
+        failureHandler: noopAppFailureHandler,
       );
       addTearDown(controller.dispose);
 
@@ -68,7 +69,7 @@ void main() {
 
     test('can reset to initial state', () {
       final controller = AppLoadController<String>(
-        reportFailure: noopAppFailureReporter,
+        failureHandler: noopAppFailureHandler,
       );
       addTearDown(controller.dispose);
 

@@ -10,15 +10,15 @@ typedef AppEmptyPredicate<T> = bool Function(T value);
 
 final class AppLoadController<T> {
   AppLoadController({
-    required AppFailureReporter reportFailure,
+    required AppFailureHandler failureHandler,
     AppLoadState<T> initialState = const AppLoadState.initial(),
     AppEmptyPredicate<T>? isEmpty,
   }) : _isEmpty = isEmpty,
-       _reportFailure = reportFailure,
+       _failureHandler = failureHandler,
        state = signal(initialState);
 
   final AppEmptyPredicate<T>? _isEmpty;
-  final AppFailureReporter _reportFailure;
+  final AppFailureHandler _failureHandler;
   final Signal<AppLoadState<T>> state;
 
   Future<AppResult<T>> run(
@@ -36,7 +36,7 @@ final class AppLoadController<T> {
     } catch (error, stackTrace) {
       result = AppResult.failure(
         mapError?.call(error, stackTrace) ??
-            AppFailure.unexpected(error, stackTrace, report: _reportFailure),
+            AppFailure.unexpected(error, stackTrace, handler: _failureHandler),
       );
     }
 

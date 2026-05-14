@@ -25,10 +25,8 @@ loading, empty, failure, and one-shot message states consistently.
 ```dart
 import 'package:mvvm_app_state/mvvm_app_state.dart';
 
-final class AppFailureReporting {
-  static void report(AppFailure failure) {
-    // Send the failure to the app's logging or reporting service.
-  }
+final class AppFailureHandling {
+  static AppFailureHandler handler = const NoopAppFailureHandler();
 }
 
 final class ResourcesViewModel {
@@ -36,10 +34,10 @@ final class ResourcesViewModel {
 
   final ResourceRepository repository;
   final resources = AppLoadController<List<Resource>>(
-    reportFailure: AppFailureReporting.report,
+    failureHandler: AppFailureHandling.handler,
   );
   final save = AppActionController<void>(
-    reportFailure: AppFailureReporting.report,
+    failureHandler: AppFailureHandling.handler,
   );
 
   Future<void> load() {
@@ -79,5 +77,6 @@ Use load state for screen-critical failures. Use action state and `UiMessage`
 for transient save/delete/update outcomes. Keep validation local to forms and
 fields. Keep route-level and platform-level error handling outside this package.
 Every `AppFailure` constructor and package fallback error path requires an
-explicit reporting callback. Apps should pass one central reporting function, or
-`noopAppFailureReporter` when a failure is intentionally silent.
+explicit `AppFailureHandler`. Every `AppFailure` must carry a non-null
+`StackTrace`. Apps should pass one central handler object, or
+`noopAppFailureHandler` when a failure is intentionally silent.

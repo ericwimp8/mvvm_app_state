@@ -1,0 +1,25 @@
+name: mvvm_app_state
+description: Typed result, failure, load, action, and UI message primitives for Flutter MVVM apps.
+version: 0.1.0
+topics:
+  - flutter
+  - mvvm
+  - state
+  - error-handling
+  - result
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=3.35.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  signals: ^6.3.0
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
